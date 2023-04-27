@@ -19,7 +19,7 @@ function calculateAverage(array) {
     let total = sum + currentValue.score
     return total;
   }, 0);
-  console.log("funcion average suma", suma);
+  //console.log("funcion average suma", suma);
   return suma;
 }
 
@@ -63,6 +63,7 @@ function moviesAverageByCategory(array, category) {
      0
    );
   let totalElemento = arrayGenre.length;
+  //Otra forma de hacerlo:
   // let index = arrayGenre.find(elem => elem.score == "")
   // if (index != undefined) {
   //   totalElemento--;
@@ -86,8 +87,21 @@ function moviesAverageByCategory(array, category) {
 // Exercise 7: Modify the duration of movies to minutes
 function hoursToMinutes() {}
 
-// Exercise 8: Get the best film of a year
-function bestFilmOfYear() {}
+// Exercise 8: hauràs de crear una funció que accepti l'any, i retorni la millor pel·lícula d'aquest any.
+function bestFilmOfYear(array, year) {
+  //Creamos un array con las películas de ese año:
+  let arrayFiltered = array.filter(e => e.year == year);
+  let bestMovie;
+  let maxScore = 0;
+  for (let i = 0; i < arrayFiltered.length; i++){
+    if (arrayFiltered[i].score > maxScore) {
+      maxScore = arrayFiltered[i].score;
+      bestMovie = arrayFiltered[i];
+    }
+  }
+  console.log('EXERCISE 8', bestMovie);
+  return [bestMovie];
+}
 
 // The following is required to make unit tests work.
 /* Environment setup. Do not modify the below code. */
