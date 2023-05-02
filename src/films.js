@@ -14,20 +14,20 @@ function getMoviesFromDirector(array, director) {
   //console.log('EXERCISE 2', result);
   return result;
 }
+//Función genérica para calcular la media de cualquier array de peliculas:
 function calculateAverage(array) {
   let suma = array.reduce((sum, currentValue) => {
     let total = sum + currentValue.score
     return total;
   }, 0);
   //console.log("funcion average suma", suma);
-  return suma;
+  return Number(suma / array.length.toFixed(2));
 }
 
 // Exercise 3: Calculate the average of the films of a given director.
 function moviesAverageOfDirector(array, director) {
   let arrayDirector = getMoviesFromDirector(array, director);
-  let suma = calculateAverage(arrayDirector);
-  return Number(suma / (arrayDirector.length).toFixed(2));
+  return calculateAverage(arrayDirector);
 }
 
 
@@ -62,7 +62,7 @@ function moviesAverageByCategory(array, category) {
      (sum, currentValue) => sum + currentValue.score,
      0
    );
-  let totalElemento = arrayGenre.length;
+  let arrGenreLong = arrayGenre.length;
   //Otra forma de hacerlo:
   // let index = arrayGenre.find(elem => elem.score == "")
   // if (index != undefined) {
@@ -72,11 +72,11 @@ function moviesAverageByCategory(array, category) {
   
   for (let i = 0; i < arrayGenre.length; i++){
     if (arrayGenre[i].score == "") {
-      totalElemento--;
+      arrGenreLong--;
     }
   }
   let average = Number(
-    (sumaArrayGenre / (totalElemento)).toFixed(2)
+    (sumaArrayGenre / (arrGenreLong)).toFixed(2)
   );
   // console.log(arrayGenre);
   // console.log('EXERCISE 6: La media', average);
@@ -85,7 +85,24 @@ function moviesAverageByCategory(array, category) {
 
 
 // Exercise 7: Modify the duration of movies to minutes
-function hoursToMinutes() {}
+function hoursToMinutes(array) {
+  let newArray = JSON.parse(JSON.stringify(array));
+  newArray.map(e => {
+    e.duration = e.duration.replace(/h|min/gi,"");
+    let result = [];
+    //En el caso de que la duracion fuera de más de 10h también funcionaría:
+    result = e.duration.split(" ");
+    let hour = parseInt(result[0]);
+    let min = parseInt(result[1]);
+    if(!min){
+      min = 0;
+    }
+    result = (hour * 60 + min);
+    e.duration = result;
+    return result;
+  })
+  return newArray;
+}
 
 // Exercise 8: hauràs de crear una funció que accepti l'any, i retorni la millor pel·lícula d'aquest any.
 function bestFilmOfYear(array, year) {
@@ -99,7 +116,7 @@ function bestFilmOfYear(array, year) {
       bestMovie = arrayFiltered[i];
     }
   }
-  console.log('EXERCISE 8', bestMovie);
+  //console.log('EXERCISE 8', bestMovie);
   return [bestMovie];
 }
 
